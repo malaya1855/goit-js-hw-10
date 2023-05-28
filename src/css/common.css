@@ -16,6 +16,21 @@
   img {
     display: block;
     max-width: 100%;
+    border-radius: 10px;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+  
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
   }
 
   .cat-info{
@@ -26,7 +41,36 @@ align-items: center;
 
 .image{
     width: 500px;
+    margin-top: 20px;
 }
 .title{
     font-weight: bold;
 }
+.loader{
+    font-size: 48px;
+    color: #212121;
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    position: relative;
+  }
+  .loader:after{
+    content: 'Loading';
+    position: relative;
+    z-index: 5;
+  }
+  .loader:before{
+    content: '';
+    height: 6px;
+    border: 1px solid;
+    border-radius: 10px;
+    width: 200px;
+    position: absolute;
+    bottom: 0px;
+    background: linear-gradient(#FF3D00 100%, transparent 0) no-repeat;
+    background-size: 0% auto;
+    animation: 10s lineGrow linear infinite;
+  }
+
+  @keyframes lineGrow {to {  background-size: 100% auto}}
+      

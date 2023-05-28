@@ -12,36 +12,43 @@ const options = {
 const selectBreeds = document.querySelector("select.breed-select")
 const errorMessage = document.querySelector('.error')
 const catCard = document.querySelector('.cat-info')
+const loaderMark = document.querySelector('.loader') 
 let breedId = '';
 
-
+errorMessage.classList.add('visually-hidden')
 
 fetchBreeds()
-.then((cats) => renderBreeds(cats))
-.catch((error) => Notify.failure(errorMessage.textContent))
+.then((cats) => {
+    loaderMark.classList.add('visually-hidden')
+    selectBreeds.classList.remove('visually-hidden')
+    renderBreeds(cats)})
+.catch(error => {
+    selectBreeds.classList.add('visually-hidden')
+    loaderMark.classList.remove('visually-hidden')
+    Notify.failure(errorMessage.textContent)})
 
 function fetchBreeds() {
+    selectBreeds.classList.add('visually-hidden')
     return fetch(`${BASE_URL}/v1/breeds`, options)
     .then(response => response.json())
 }
-
 
 function renderBreeds(cats) {
     const breedItem = cats.map(
         cat => {
             const breedOption = document.createElement("option")
-        breedOption.value = cat.id;
-        breedOption.innerHTML = `${cat.name}`
-    return breedOption
+            breedOption.value = cat.id;
+            breedOption.innerHTML = `${cat.name}`
+            return breedOption
         }
-    )
-    selectBreeds.append(...breedItem);
-    console.log(selectBreeds);
-    
-    // new SlimSelect({
-    //     select: selectBreeds,
-    //   })
-}
+        )
+        selectBreeds.append(...breedItem);
+        
+        // new SlimSelect({
+        //     select: selectBreeds,
+            
+        // })
+    }
     
     selectBreeds.addEventListener("change", onCreateCatCard);
 
@@ -49,11 +56,19 @@ function renderBreeds(cats) {
 e.preventDefault();
 
 fetchCatByBreed()
-    .then(catCards => renderCatInfo(catCards))
-    .catch(error => Notify.failure(errorMessage.textContent))
+    .then(catCards => {
+        loaderMark.classList.add('visually-hidden')
+        catCard.classList.remove('visually-hidden'),
+        renderCatInfo(catCards)})
+    .catch(error => {
+        catCard.classList.add('visually-hidden')
+    loaderMark.classList.remove('visually-hidden')
+        Notify.failure(errorMessage.textContent)})
     
     function fetchCatByBreed(breedId){
         breedId = e.currentTarget.value;
+        catCard.classList.add('visually-hidden')
+        loaderMark.classList.remove('visually-hidden')
         return fetch (`${BASE_URL}/v1/images/search?breed_ids=${breedId}`, options)
         .then(response => response.json())
     }
@@ -69,24 +84,3 @@ for (let i = 0; i < catCards.length; i += 1){
         
     }
     }}
-
-    
-    // const ingredients = [
-    //     'Potatoes',
-    //     'Mushrooms',
-    //     'Garlic',
-    //     'Tomatos',
-    //     'Herbs',
-    //     'Condiments',
-    //   ];
-    //   const list = document.querySelector('#ingredients')
-      
-    //   const newIngredient = ingredients.map (
-    //     ingredient => {
-    //       const name = document.createElement('li');
-    //     name.classList.add('item');
-    //     name.textContent = ingredient;
-    //     return name
-    //     }
-    //   )
-    //   list.append(...newIngredient)
