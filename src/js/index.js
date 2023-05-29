@@ -32,6 +32,9 @@ newApiService.fetchBreeds()
 })
 
 function renderBreeds(cats) {
+    const placeholderOption = document.createElement("option")
+    placeholderOption.setAttribute('data-placeholder', true) 
+    selectBreeds.append(placeholderOption)
     const breedItem = cats.map(
         cat => {
             const breedOption = document.createElement("option")
@@ -43,6 +46,9 @@ function renderBreeds(cats) {
         
         new SlimSelect({
             select: selectBreeds,
+            settings: {
+                placeholderText: 'Select the breed',
+              }
         })
     }
     
