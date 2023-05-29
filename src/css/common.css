@@ -19,6 +19,10 @@
     border-radius: 10px;
   }
 
+  .breed-select {
+    width: 300px;
+  }
+
   .visually-hidden {
     position: absolute;
     width: 1px;
@@ -62,12 +66,12 @@ align-items: center;
   .loader:before{
     content: '';
     height: 6px;
-    border: 1px solid;
+    border: #5897fb 1px solid;
     border-radius: 10px;
     width: 200px;
     position: absolute;
     bottom: 0px;
-    background: linear-gradient(#FF3D00 100%, transparent 0) no-repeat;
+    background: linear-gradient(#5897fb 100%, transparent 0) no-repeat;
     background-size: 0% auto;
     animation: 10s lineGrow linear infinite;
   }
