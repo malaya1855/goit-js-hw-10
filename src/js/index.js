@@ -38,9 +38,10 @@ function renderBreeds(cats) {
     const breedItem = cats.map(
         cat => {
             const breedOption = document.createElement("option")
-            breedOption.value = cat.id;
+            if(cat.image) 
+            {breedOption.value = cat.id;
             breedOption.innerHTML = `${cat.name}`
-            return breedOption
+            return breedOption}
         })
         selectBreeds.append(...breedItem);
         
